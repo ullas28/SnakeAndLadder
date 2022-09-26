@@ -9,82 +9,74 @@ import java.util.Scanner;
 
 public class TwoPlayer {
     public static void main(String[] args) {
-        Random rand = new Random();
-        Scanner keyboard = new Scanner(System.in);
-
-        int Player1Score = 0;
-        int Player2Score = 0;
-        int PlayerSubTotal = 0;
-        boolean run = true;
-        String response;
-        int roll = 0;
-
+        int player1 = 0;
+        int player2 = 0;
+        Random a = new Random();
+        int dice;
+        System.out.println("Welcome to snake and ladder program with 2 players");
         do {
-            System.out.println("Player1 Turn");
-            run = true;
-            do {
-                roll = 1 + rand.nextInt(6);
-                System.out.println("Player1 rolled " + roll + ".");
-
-
-                if (roll == 1)
-                {
-                    System.out.println("Player1 score: " + Player1Score + " Player2 score: " + Player2Score);
-
-                    run = false;
-                } else {
-                    Player2Score += roll;
-                    System.out.println("Player1score: " + Player1Score + " Player2score: " + Player2Score);
-
-                    if (Player1Score >= 100) {
-                        run = false;
-                    } else {
-                        System.out.print("Enter 'r' to roll again or 'h' to hold: ");
-                        response = keyboard.next();
-                        if (response.equalsIgnoreCase("h")) {
-                            run = false;
+            dice = a.nextInt(6) + 1;
+            int option = (int) Math.floor(Math.random() * 10) % 3;
+                switch (option) {
+                    case 0:
+                        player1 += dice;
+                        System.out.println("Ladder");
+                        if (player1 > 100) {
+                            player1 -= dice;
                         }
-                    }
+                        System.out.println("Position of the player1 after the ladder is : " + player1);
+                        break;
 
+                    case 1:
+                        player1 -= dice;
+                        System.out.println("Snake");
+                        if (player1 < 0) {
+                            player1 = 0;
+                            System.out.println("Player restart from zero: ");
+                        }
+                        System.out.println("Position of the player1 after the Snake is : " + player1);
+                        break;
+
+                    case 2:
+                        System.out.println("No play");
+                        System.out.println("Position of the player1 remains same");
+                        break;
                 }
-            } while (run);
+                if (player1 == 100) {
+                    System.out.println("Player1 is the winner");
+                    return;
+                }
+                int option1 = (int) Math.floor(Math.random() * 10) % 3;
 
-            if (Player1Score < 100) {
-                System.out.println("\nPlayer2 Turn");
-
-                Player2Score = 0;
-                run = true;
-                do {
-                    roll = 1 + rand.nextInt(6);
-                    System.out.println("Player2 rolled " + roll + ".");
-
-                    if (roll == 1) {
-                        System.out.println("Player1 score: " + Player1Score + " Player2 score: " + Player2Score);
-                        run = false;
-                    } else {
-                        Player1Score += roll;
-                        Player2Score += roll;
-                        System.out.println("Player1 score: " + Player1Score + " Player2 score: " + Player2Score);
-
-                        if (Player2Score >= 20) {
-                            System.out.println("Player2 subtotal >= 20.");
-                            run = false;
+                switch (option1) {
+                    case 0:
+                        player2 += dice;
+                        System.out.println("Ladder");
+                        if (player2 > 100) {
+                            player2 -= dice;
                         }
+                        System.out.println("Position of the player2 after the ladder is : " + player2);
+                        break;
 
-                        if (Player2Score >= 100) {
-                            run = false;
+                    case 1:
+                        player2 -= dice;
+                        System.out.println("Snake");
+                        if (player2 < 0) {
+                            player2 = 0;
+                            System.out.println("Player2 restart from zero: ");
                         }
-                    }
-                } while (run && Player2Score < 20);
-            }
-            System.out.println();
-        } while (Player1Score < 100 && Player2Score < 100);
+                        System.out.println("Position of the player2 after the Snake is : " + player2);
+                        break;
 
-        if (Player1Score >= 100)
-            System.out.println("Player1 win the game");
-        else
-            System.out.println("Player2 win the game");
-
-        keyboard.close();
+                    case 2:
+                        System.out.println("No play");
+                        System.out.println("Position of the player2 remains same");
+                        break;
+                }
+                if (player2 == 100) {
+                    System.out.println("Player2 is the winner");
+                    return;
+                }
+        }while (player1 < 100 && player2 < 100) ;
     }
 }
